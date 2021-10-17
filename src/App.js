@@ -64,7 +64,7 @@ class App extends Component {
 
   onLoadMore = () => {
     this.searchImages();
-    this.scrollPage();
+    this.scrollOnLoadButton();
   };
 
   onOpenModal = (e) => {
@@ -84,13 +84,11 @@ class App extends Component {
     }));
   };
 
-  scrollPage = () => {
-    setTimeout(() => {
-      window.scrollBy({
-        top: document.documentElement.clientHeight - 160,
-        behavior: "smooth",
-      });
-    }, 1000);
+  scrollOnLoadButton = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   render() {
