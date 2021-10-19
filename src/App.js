@@ -22,10 +22,11 @@ class App extends Component {
     showModal: false,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.query !== this.state.query) {
-      this.setState({ images: [], page: 1, error: null });
-    }
+  componentDidUpdate() {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
   }
 
   searchImages = async () => {
@@ -46,6 +47,12 @@ class App extends Component {
       if (request.length === 0) {
         this.setState({ error: `No results were found for ${query}!` });
       }
+      // else {
+      //   window.scrollTo({
+      //     top: document.documentElement.scrollHeight,
+      //     behavior: "smooth",
+      //   });
+      // }
     } catch (error) {
       this.setState({ error: "Ooops... something went wrong. Try again." });
     } finally {
@@ -59,12 +66,12 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({ images: [], page: 1, error: null });
     this.searchImages();
   };
 
   onLoadMore = () => {
     this.searchImages();
-    this.scrollOnLoadButton();
   };
 
   onOpenModal = (e) => {
@@ -82,13 +89,6 @@ class App extends Component {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
     }));
-  };
-
-  scrollOnLoadButton = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
   };
 
   render() {
